@@ -13,10 +13,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ECommercePlatform {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+		int count=0;
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
-		String itemsNeeded[] = {"Cucumber","Brocolli"};
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+		String itemsNeeded[] = {"Brocolli","Cucumber","Beetroot"};
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
@@ -28,12 +31,18 @@ public class ECommercePlatform {
 		List<WebElement> products = driver.findElements(By.cssSelector("h4.product-name"));
 		for(int i=0;i<products.size();i++) 
 		{
-			String productName = products.get(i).getText();
+			String[] productName = products.get(i).getText().split("-");
+			String expectedProduct = productName[0].trim();
 			List<String> itemsNeededList= Arrays.asList(itemsNeeded);
-			if(itemsNeededList.contains(productName))
+		
+			if(itemsNeededList.contains(expectedProduct))
 			{
-				
-				driver.findElements(By.xpath("//button[text()='ADD TO CART']")).get(i).click();
+				count++;
+				driver.findElements(By.xpath("//div[@class='product-action']")).get(i).click();
+				Thread.sleep(1000);
+				if(count==3)
+				break;
+			
 				
 			}
 		}
