@@ -50,17 +50,17 @@ public class HandleCalnder {
 			  System.out.println("Return date is disabled");
 		  }
 		
-		/*
-		 * driver.findElement(By.xpath(
-		 * "//div[@class='picker-first2']/descendant::button[@class='ui-datepicker-trigger']"
-		 * )).click();
-		 * 
-		 * List<WebElement> dateRange =
-		 * driver.findElements(By.xpath("//td//a[@class='ui-state-default']"));
-		 * 
-		 * for(WebElement e:dateRange) { if(e.getText().equalsIgnoreCase("11")) {
-		 * e.click(); break; } }
-		 */
+		
+		  driver.findElement(By.xpath(
+		  "//div[@class='picker-first2']/descendant::button[@class='ui-datepicker-trigger']"
+		  )).click();
+		  
+		  List<WebElement> dateRange =
+		  driver.findElements(By.xpath("//td//a[@class='ui-state-default']"));
+		  
+		  for(WebElement e:dateRange) { if(e.getText().equalsIgnoreCase("28")) {
+		  e.click(); break; } }
+		 
 		
 
 		
